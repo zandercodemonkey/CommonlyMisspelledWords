@@ -158,7 +158,7 @@
       };
 
       $scope.filterEntireList = function (x) {
-        return ($scope.filterInput == "" || x.word.indexOf($scope.filterInput) > -1);
+        return ($scope.filterInput == "" || x.word.toLowerCase().indexOf($scope.filterInput.toLowerCase()) > -1);
       };
 
     }]);
