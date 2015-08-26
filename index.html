@@ -140,10 +140,10 @@ color: #fff; background-color: #5bc0de; border-color: #46b8da; margin: 5px; }
             <div class="panel-body">
               <div id="divItems2" ng-repeat="x in data | filter : {show : true} ">
                 <div ng-show="!listType">
-                  <label style="float: left; margin:5px" class="btn btn-default btn-sm">{{x.word}}</label>
+                  <span style="float: left; margin:5px" class="btn btn-default btn-sm">{{x.word}}</span>
                 </div>
                 <div ng-show="listType">
-                  <label>{{x.word}}</label>
+                  <div>{{x.word}}</div>
                 </div>
 
               </div>
