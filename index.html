@@ -120,6 +120,17 @@ color: #fff; background-color: #5bc0de; border-color: #46b8da; margin: 5px; }
                 </div>
               </div>
             </div>
+            
+            <div class="panel  panel-default ">
+            <div class="panel-heading">
+              <div class="btn-group pull-right">
+                <a href="#" class="btn btn-info btn-sm" ng-click="concatData()">
+                  <span class="glyphicon glyphicon-ok"></span></a>
+              </div>
+              <input type="text" placeholder="New Word" id="NewWord"/>
+            </div>
+
+
           </div>
         </div>
 
@@ -176,7 +187,22 @@ color: #fff; background-color: #5bc0de; border-color: #46b8da; margin: 5px; }
           $scope.data = $.parseJSON(localStorage.getItem("app0123456789"));
         }
       }
-
+      
+      
+      
+      $scope.concatData = function(){
+        var v = $("#NewWord").val();
+        if(v.length > 0){
+        var hasFoo = false;
+$.each($scope.data, function(i,o) {
+  if (o.word == v) { hasFoo = true; return false;}
+}); 
+      if(!hasFoo){
+        $scope.data = $scope.releases.concat([{ word: v, show: true }]);
+        $scope.saveData();
+        }}
+        $("#NewWord").val("");
+      }
       $scope.saveData = function () {
         localStorage.setItem("app0123456789", JSON.stringify($scope.data));
         $scope.loadData();
