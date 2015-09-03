@@ -23,6 +23,9 @@
     input[type=checkbox]:checked + label { display: inline-block; padding: 6px 12px; margin-bottom: 0; font-size: 14px; font-weight: 400; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none; border: 1px solid transparent; padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; color: #333; background-color: #fff; border-color: #ccc; color: #fff; background-color: #5bc0de; border-color: #46b8da; margin: 5px; }
 
     input[type=checkbox] { display: none; }
+
+    span.glyphicon-remove { font-size:0.8em !important; font-weight:100; }
+
   </style>
 </head>
 <body>
@@ -49,72 +52,33 @@
 
           <div class="panel  panel-default ">
             <div class="panel-heading">
-
-
               <div class="input-group">
-                <a href="#" class="input-group-addon btn btn-info btn-sm  btn-align" ng-click="concatData()">
-                  <span class="glyphicon glyphicon-plus"></span>
-
-
-
-                </a>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  ng-model="addWord"
-                  placeholder="Search/Add New Word">
-
-                <a href="#" class="input-group-addon btn btn-default btn-sm  btn-align" ng-click="setTogglePanel()">
-                  <span class="glyphicon glyphicon-ok"></span></a>
-                <a href="#" class="input-group-addon btn btn-default btn-sm btn-align" ng-click="toggleListType()">
-                  <span ng-show="(listType == true)" class="glyphicon glyphicon-list"></span>
-                  <span ng-show="(listType == false)" class="glyphicon glyphicon-th-large"></span>
-                </a>
-
-
-
+                <a href="#" class="input-group-addon btn btn-info btn-sm  btn-align" ng-click="concatData()"><span class="glyphicon glyphicon-plus"></span></a>
+                <input type="text" class="form-control" ng-model="addWord" placeholder="Search/Add New Word" /><a href="#" class="input-group-addon btn btn-default btn-sm  btn-align" ng-click="setTogglePanel()"><span class="glyphicon glyphicon-ok"></span></a>
+                <a href="#" class="input-group-addon btn btn-default btn-sm btn-align" ng-click="toggleListType()"><span ng-show="(listType == true)" class="glyphicon glyphicon-list"></span><span ng-show="(listType == false)" class="glyphicon glyphicon-th-large"></span></a>
               </div>
-
-
-
-
             </div>
+
+
             <div class="panel-body">
               <div id="divItems" ng-repeat="x in data | filter:addWord">
-
                 <div ng-show="!listType">
-                  <button ng-show="(x.allowDelete == true)" ng-click="deleteItem($index)" style="float: left" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <input style="float: left" id="{{x.word}}checkbox" type="checkbox" ng-model="x.show" />
-                  <label style="float: left" for="{{x.word}}checkbox">{{x.word}}</label>
+                  <label style="float: left"  for="{{x.word}}checkbox"><span ng-show="(x.allowDelete == true)" ng-click="deleteItem($index)" class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;{{x.word}}&nbsp;&nbsp;</label>
                 </div>
                 <div ng-show="listType">
-                  <button ng-show="(x.allowDelete == true)" ng-click="deleteItem($index)" style="float: left; margin-top: 12px;" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <input id="{{x.word}}checkbox" type="checkbox" ng-model="x.show" />
-                  <label for="{{x.word}}checkbox">{{x.word}}</label>
+                  <label for="{{x.word}}checkbox"><span ng-show="(x.allowDelete == true)" ng-click="deleteItem($index)" class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;{{x.word}}&nbsp;&nbsp;</label>
                 </div>
-
               </div>
             </div>
 
-
           </div>
-          <div class="panel  panel-default ">
-            <div class="panel-heading">
-              <div class="btn-group pull-right">
-                <a href="#" class="btn btn-info btn-sm  btn-align" 
-                  ng-click="concatData()">
-                  <span class="glyphicon glyphicon-plus"></span>
 
 
 
-                </a>
-              </div>
-
-            </div>
 
 
-          </div>
         </div>
 
 
@@ -126,19 +90,14 @@
                 <a href="#" class="btn btn-default btn-sm  btn-align" ng-click="setTogglePanel()">
                   <span class="glyphicon glyphicon-edit"></span></a>
                 <a href="#" class="btn btn-info btn-sm  btn-align" ng-click="toggleListType()">
-
                   <span ng-show="(listType == true)" class="glyphicon glyphicon-list"></span>
                   <span ng-show="(listType == false)" class="glyphicon glyphicon-th-large"></span>
-
-
-
                 </a>
-
               </div>
               <h4>My List</h4>
             </div>
             <div class="panel-body">
-              <div><span >{{example}}</span></div>
+              <div><span>{{example}}</span></div>
               <div id="divItems2" ng-repeat="x in data | filter : {show : true} ">
                 <div ng-show="!listType">
                   <label style="float: left; margin: 5px" class="btn btn-default btn-sm" ng-click="showExample($index)">{{x.word}}</label>
@@ -146,7 +105,6 @@
                 <div ng-show="listType">
                   <label ng-click="showExample($index)" style="margin: 5px" class="btn btn-default btn-sm">{{x.word}}</label>
                 </div>
-
               </div>
             </div>
           </div>
@@ -163,7 +121,7 @@
   _app.controller('ctrlr',
     ['$scope', '$sce', '$http', function ($scope, $sce, $http, $route) {
       $scope.checkIfISO = function () { return /iPad|iPhone|iPod/.test(navigator.userAgent); };
-      $scope.defaultData = [{ word: "a lot", example:"", show: true, allowDelete: false }, { word: "acceptable", example:"", show: false, allowDelete: false }, { word: "accidentally", example:"", show: false, allowDelete: false }, { word: "accommodate", example:"", show: false, allowDelete: false }, { word: "acquire", example:"", show: false, allowDelete: false }, { word: "acquit", example:"", show: false, allowDelete: false }, { word: "apparent", example:"", show: false, allowDelete: false }, { word: "argument", example:"", show: false, allowDelete: false }, { word: "atheist", example:"", show: false, allowDelete: false }, { word: "believe", example:"", show: false, allowDelete: false }, { word: "bellwether", example:"", show: false, allowDelete: false }, { word: "calendar", example:"", show: false, allowDelete: false }, { word: "category", example:"", show: false, allowDelete: false }, { word: "cemetery", example:"", show: false, allowDelete: false }, { word: "changeable", example:"", show: false, allowDelete: false }, { word: "collectible", example:"", show: false, allowDelete: false }, { word: "column", example:"", show: false, allowDelete: false }, { word: "committed", example:"", show: false, allowDelete: false }, { word: "conscience", example:"", show: false, allowDelete: false }, { word: "conscientious", example:"", show: false, allowDelete: false }, { word: "conscious", example:"", show: false, allowDelete: false }, { word: "consensus", example:"", show: false, allowDelete: false }, { word: "daiquiri", example:"", show: false, allowDelete: false }, { word: "definite (ly)", example:"", show: false, allowDelete: false }, { word: "discipline", example:"", show: false, allowDelete: false }, { word: "drunkenness", example:"", show: false, allowDelete: false }, { word: "dumbbell", example:"", show: false, allowDelete: false }, { word: "embarrass (ment)", example:"", show: false, allowDelete: false }, { word: "equipment", example:"", show: false, allowDelete: false }, { word: "exceed", example:"", show: false, allowDelete: false }, { word: "exhilarate", example:"", show: false, allowDelete: false }, { word: "existence", example:"", show: false, allowDelete: false }, { word: "experience", example:"", show: false, allowDelete: false }, { word: "fiery", example:"", show: false, allowDelete: false }, { word: "foreign", example:"", show: false, allowDelete: false }, { word: "gauge", example:"", show: false, allowDelete: false }, { word: "grateful", example:"", show: false, allowDelete: false }, { word: "guarantee", example:"", show: false, allowDelete: false }, { word: "harass", example:"", show: false, allowDelete: false }, { word: "height", example:"", show: false, allowDelete: false }, { word: "hierarchy", example:"", show: false, allowDelete: false }, { word: "humorous", example:"", show: false, allowDelete: false }, { word: "ignorance", example:"", show: false, allowDelete: false }, { word: "immediate", example:"", show: false, allowDelete: false }, { word: "independent", example:"", show: false, allowDelete: false }, { word: "indispensable", example:"", show: false, allowDelete: false }, { word: "inoculate", example:"", show: false, allowDelete: false }, { word: "intelligence", example:"", show: false, allowDelete: false }, { word: "its/it's", example:"", show: false, allowDelete: false }, { word: "jewelry", example:"", show: false, allowDelete: false }, { word: "judgment", example:"", show: false, allowDelete: false }, { word: "kernel (colonel)", example:"", show: false, allowDelete: false }, { word: "leisure", example:"", show: false, allowDelete: false }, { word: "liaison", example:"", show: false, allowDelete: false }, { word: "library", example:"", show: false, allowDelete: false }, { word: "license", example:"", show: false, allowDelete: false }, { word: "maintenance", example:"", show: false, allowDelete: false }, { word: "maneuver", example:"", show: false, allowDelete: false }, { word: "medieval", example:"", show: false, allowDelete: false }, { word: "memento", example:"", show: false, allowDelete: false }, { word: "millennium", example:"", show: false, allowDelete: false }, { word: "miniature", example:"", show: false, allowDelete: false }, { word: "minuscule", example:"", show: false, allowDelete: false }, { word: "mischievous", example:"", show: false, allowDelete: false }, { word: "misspell", example:"", show: false, allowDelete: false }, { word: "neighbor", example:"", show: false, allowDelete: false }, { word: "noticeable", example:"", show: false, allowDelete: false }, { word: "occasionally", example:"", show: false, allowDelete: false }, { word: "occurrence", example:"", show: false, allowDelete: false }, { word: "pastime", example:"", show: false, allowDelete: false }, { word: "perseverance", example:"", show: false, allowDelete: false }, { word: "personnel", example:"", show: false, allowDelete: false }, { word: "playwright", example:"", show: false, allowDelete: false }, { word: "possession", example:"", show: false, allowDelete: false }, { word: "precede", example:"", show: false, allowDelete: false }, { word: "principal/principle", example:"", show: false, allowDelete: false }, { word: "privilege", example:"", show: false, allowDelete: false }, { word: "pronunciation", example:"", show: false, allowDelete: false }, { word: "publicly", example:"", show: false, allowDelete: false }, { word: "questionnaire", example:"", show: false, allowDelete: false }, { word: "receive/receipt", example:"", show: false, allowDelete: false }, { word: "recommend", example:"", show: false, allowDelete: false }, { word: "reference", example:"", show: false, allowDelete: false }, { word: "referred", example:"", show: false, allowDelete: false }, { word: "relevant", example:"", show: false, allowDelete: false }, { word: "restaurant", example:"", show: false, allowDelete: false }, { word: "rhyme", example:"", show: false, allowDelete: false }, { word: "rhythm", example:"", show: false, allowDelete: false }, { word: "schedule", example:"", show: false, allowDelete: false }, { word: "separate", example:"", show: false, allowDelete: false }, { word: "sergeant", example:"", show: false, allowDelete: false }, { word: "supersede", example:"", show: false, allowDelete: false }, { word: "their/they're/there", example:"", show: false, allowDelete: false }, { word: "threshold", example:"", show: false, allowDelete: false }, { word: "twelfth", example:"", show: false, allowDelete: false }, { word: "tyranny", example:"", show: false, allowDelete: false }, { word: "until", example:"", show: false, allowDelete: false }, { word: "vacuum", example:"", show: false, allowDelete: false }, { word: "weather", example:"", show: false, allowDelete: false }, { word: "weird", example:"", show: false, allowDelete: false }];
+      $scope.defaultData = [{ word: "a lot", example: "", show: true, allowDelete: false }, { word: "acceptable", example: "", show: false, allowDelete: false }, { word: "accidentally", example: "", show: false, allowDelete: false }, { word: "accommodate", example: "", show: false, allowDelete: false }, { word: "acquire", example: "", show: false, allowDelete: false }, { word: "acquit", example: "", show: false, allowDelete: false }, { word: "apparent", example: "", show: false, allowDelete: false }, { word: "argument", example: "", show: false, allowDelete: false }, { word: "atheist", example: "", show: false, allowDelete: false }, { word: "believe", example: "", show: false, allowDelete: false }, { word: "bellwether", example: "", show: false, allowDelete: false }, { word: "calendar", example: "", show: false, allowDelete: false }, { word: "category", example: "", show: false, allowDelete: false }, { word: "cemetery", example: "", show: false, allowDelete: false }, { word: "changeable", example: "", show: false, allowDelete: false }, { word: "collectible", example: "", show: false, allowDelete: false }, { word: "column", example: "", show: false, allowDelete: false }, { word: "committed", example: "", show: false, allowDelete: false }, { word: "conscience", example: "", show: false, allowDelete: false }, { word: "conscientious", example: "", show: false, allowDelete: false }, { word: "conscious", example: "", show: false, allowDelete: false }, { word: "consensus", example: "", show: false, allowDelete: false }, { word: "daiquiri", example: "", show: false, allowDelete: false }, { word: "definite (ly)", example: "", show: false, allowDelete: false }, { word: "discipline", example: "", show: false, allowDelete: false }, { word: "drunkenness", example: "", show: false, allowDelete: false }, { word: "dumbbell", example: "", show: false, allowDelete: false }, { word: "embarrass (ment)", example: "", show: false, allowDelete: false }, { word: "equipment", example: "", show: false, allowDelete: false }, { word: "exceed", example: "", show: false, allowDelete: false }, { word: "exhilarate", example: "", show: false, allowDelete: false }, { word: "existence", example: "", show: false, allowDelete: false }, { word: "experience", example: "", show: false, allowDelete: false }, { word: "fiery", example: "", show: false, allowDelete: false }, { word: "foreign", example: "", show: false, allowDelete: false }, { word: "gauge", example: "", show: false, allowDelete: false }, { word: "grateful", example: "", show: false, allowDelete: false }, { word: "guarantee", example: "", show: false, allowDelete: false }, { word: "harass", example: "", show: false, allowDelete: false }, { word: "height", example: "", show: false, allowDelete: false }, { word: "hierarchy", example: "", show: false, allowDelete: false }, { word: "humorous", example: "", show: false, allowDelete: false }, { word: "ignorance", example: "", show: false, allowDelete: false }, { word: "immediate", example: "", show: false, allowDelete: false }, { word: "independent", example: "", show: false, allowDelete: false }, { word: "indispensable", example: "", show: false, allowDelete: false }, { word: "inoculate", example: "", show: false, allowDelete: false }, { word: "intelligence", example: "", show: false, allowDelete: false }, { word: "its/it's", example: "", show: false, allowDelete: false }, { word: "jewelry", example: "", show: false, allowDelete: false }, { word: "judgment", example: "", show: false, allowDelete: false }, { word: "kernel (colonel)", example: "", show: false, allowDelete: false }, { word: "leisure", example: "", show: false, allowDelete: false }, { word: "liaison", example: "", show: false, allowDelete: false }, { word: "library", example: "", show: false, allowDelete: false }, { word: "license", example: "", show: false, allowDelete: false }, { word: "maintenance", example: "", show: false, allowDelete: false }, { word: "maneuver", example: "", show: false, allowDelete: false }, { word: "medieval", example: "", show: false, allowDelete: false }, { word: "memento", example: "", show: false, allowDelete: false }, { word: "millennium", example: "", show: false, allowDelete: false }, { word: "miniature", example: "", show: false, allowDelete: false }, { word: "minuscule", example: "", show: false, allowDelete: false }, { word: "mischievous", example: "", show: false, allowDelete: false }, { word: "misspell", example: "", show: false, allowDelete: false }, { word: "neighbor", example: "", show: false, allowDelete: false }, { word: "noticeable", example: "", show: false, allowDelete: false }, { word: "occasionally", example: "", show: false, allowDelete: false }, { word: "occurrence", example: "", show: false, allowDelete: false }, { word: "pastime", example: "", show: false, allowDelete: false }, { word: "perseverance", example: "", show: false, allowDelete: false }, { word: "personnel", example: "", show: false, allowDelete: false }, { word: "playwright", example: "", show: false, allowDelete: false }, { word: "possession", example: "", show: false, allowDelete: false }, { word: "precede", example: "", show: false, allowDelete: false }, { word: "principal/principle", example: "", show: false, allowDelete: false }, { word: "privilege", example: "", show: false, allowDelete: false }, { word: "pronunciation", example: "", show: false, allowDelete: false }, { word: "publicly", example: "", show: false, allowDelete: false }, { word: "questionnaire", example: "", show: false, allowDelete: false }, { word: "receive/receipt", example: "", show: false, allowDelete: false }, { word: "recommend", example: "", show: false, allowDelete: false }, { word: "reference", example: "", show: false, allowDelete: false }, { word: "referred", example: "", show: false, allowDelete: false }, { word: "relevant", example: "", show: false, allowDelete: false }, { word: "restaurant", example: "", show: false, allowDelete: false }, { word: "rhyme", example: "", show: false, allowDelete: false }, { word: "rhythm", example: "", show: false, allowDelete: false }, { word: "schedule", example: "", show: false, allowDelete: false }, { word: "separate", example: "", show: false, allowDelete: false }, { word: "sergeant", example: "", show: false, allowDelete: false }, { word: "supersede", example: "", show: false, allowDelete: false }, { word: "their/they're/there", example: "", show: false, allowDelete: false }, { word: "threshold", example: "", show: false, allowDelete: false }, { word: "twelfth", example: "", show: false, allowDelete: false }, { word: "tyranny", example: "", show: false, allowDelete: false }, { word: "until", example: "", show: false, allowDelete: false }, { word: "vacuum", example: "", show: false, allowDelete: false }, { word: "weather", example: "", show: false, allowDelete: false }, { word: "weird", example: "", show: false, allowDelete: false }];
       $scope.data = [];
       $scope.filterInput = "";
       $scope.panelIndex = 1;
@@ -218,7 +176,7 @@
       $scope.example = "";
 
       $scope.showExample = function (i) {
-        
+
         $scope.example = $scope.data[i].example;
       }
 
