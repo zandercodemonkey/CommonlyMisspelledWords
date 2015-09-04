@@ -24,11 +24,22 @@
 
     input[type=checkbox] { display: none; }
 
-    span.glyphicon-remove { font-size:0.8em !important; font-weight:100; }
+    .itemWord {
 
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding:4px;
+    color: #333;
+    background-color: #fff;
+    
+
+    }
   </style>
 </head>
 <body>
+
+   
+
   <div class="margin5px">
     <div ng-app="app">
       <div ng-controller="ctrlr">
@@ -48,8 +59,7 @@
         </div>
 
 
-        <span ng-click="showExample(this)">APPLE</span>
-
+     
         <div ng-show="showPanel(0)">
 
           <div class="panel  panel-default ">
@@ -102,10 +112,10 @@
               <div><span>{{example}}</span></div>
               <div id="divItems2" ng-repeat="x in data | filter : {show : true} ">
                 <div ng-show="!listType">
-                  <label ng-click="showExample()" style="float: left; margin: 5px" class="btn btn-default btn-sm" >{{x.word}}</label>
+                  <label ng-click="showExample()" style="float: left; margin: 5px" class="itemWord" >{{x.word}}</label>
                 </div>
                 <div ng-show="listType">
-                  <label ng-click="showExample()" style="margin: 5px" class="btn btn-default btn-sm">{{x.word}}</label>
+                  <label ng-click="showExample()" style="margin: 5px" class="itemWord">{{x.word}}</label>
                 </div>
               </div>
             </div>
