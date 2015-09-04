@@ -24,21 +24,12 @@
 
     input[type=checkbox] { display: none; }
 
-    .itemWord {
-
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    padding:4px;
-    color: #333;
-    background-color: #fff;
-    
-
-    }
+    .itemWord { border-radius: 4px; border: 1px solid #ccc; padding: 5px 10px; color: #333; background-color: #fff; font-size: 12px; line-height: 1.5; font-weight: 100; }
   </style>
 </head>
 <body>
 
-   
+
 
   <div class="margin5px">
     <div ng-app="app">
@@ -59,7 +50,7 @@
         </div>
 
 
-     
+
         <div ng-show="showPanel(0)">
 
           <div class="panel  panel-default ">
@@ -76,7 +67,7 @@
               <div id="divItems" ng-repeat="x in data | filter:addWord">
                 <div ng-show="!listType">
                   <input style="float: left" id="{{x.word}}checkbox" type="checkbox" ng-model="x.show" />
-                  <label style="float: left"  for="{{x.word}}checkbox"><span ng-show="(x.allowDelete == true)" ng-click="deleteItem($index)" class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;{{x.word}}&nbsp;&nbsp;</label>
+                  <label style="float: left" for="{{x.word}}checkbox"><span ng-show="(x.allowDelete == true)" ng-click="deleteItem($index)" class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp;{{x.word}}&nbsp;&nbsp;</label>
                 </div>
                 <div ng-show="listType">
                   <input id="{{x.word}}checkbox" type="checkbox" ng-model="x.show" />
@@ -112,7 +103,7 @@
               <div><span>{{example}}</span></div>
               <div id="divItems2" ng-repeat="x in data | filter : {show : true} ">
                 <div ng-show="!listType">
-                  <label ng-click="showExample()" style="float: left; margin: 5px" class="itemWord" >{{x.word}}</label>
+                  <label ng-click="showExample()" style="float: left; margin: 5px" class="itemWord">{{x.word}}</label>
                 </div>
                 <div ng-show="listType">
                   <label ng-click="showExample()" style="margin: 5px" class="itemWord">{{x.word}}</label>
